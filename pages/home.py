@@ -3,10 +3,11 @@ import streamlit as st
 import cv2
 import numpy as np
 import torch
+
 def show():
     def detect_food(image):
         # Load YOLOv5 model from local directory
-        model = torch.hub.load('/Users/shuyuliu/Documents/Technova/yolov5', 'yolov5s', source='local')  # Update with your local path
+        model = torch.hub.load('yolov5', 'yolov5s', source='local')  # Update with your local path
         results = model(image)
         return results
     def visualize_detections(image, results):
@@ -43,7 +44,8 @@ def show():
                 edited_name = st.text_input(f"Ingredient {index+1} (Confidence: {confidence:.2f})", value=label)
                 detected_items[index] = edited_name  # Store edited names
             st.write("Ingredients: " + ", ".join(detected_items))
-            if st.button("Get my recipe!"):
-                st.session_state.page = "results"
+            
         else:
             st.write("No food items detected.")
+    if st.button("Get my recipe!"):
+            st.session_state.page = "results"
