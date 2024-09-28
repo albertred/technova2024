@@ -2,15 +2,9 @@ import random
 import streamlit as st
 from streamlit_extras.let_it_rain import rain 
 
-
-# nav bar
-
+# Styling the navigation bar
 st.markdown("""
     <style>
-            
-            
-    
-    /* Styling the navigation bar */
     .navbar {
         position: sticky;
         top: 0;
@@ -29,8 +23,9 @@ st.markdown("""
     .navbar a:hover {
         background-color: #f4a261;
         border-radius: 5px;
-    }""", unsafe_allow_html=True)
-
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # Navigation bar HTML
 st.markdown("""
@@ -40,71 +35,93 @@ st.markdown("""
         <a href='/recipes'>Recipes</a>
     </div>
 """, unsafe_allow_html=True)
-    
-            
 
+# Food emojis for the rain effect
 food_emojis = ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🍈", 
                "🍒", "🍑", "🍍", "🥭", "🥥", "🥝", "🍅", "🥑", "🍆", "🥕", 
                "🌽", "🌶️", "🥔", "🥬", "🍞", "🥖", "🥯", "🥩", "🍗", "🍔", 
                "🍟", "🌭", "🍕", "🍣", "🍱", "🥗", "🍜", "🍲", "🍛", "🍥", 
                "🍦", "🍧", "🍨", "🍩", "🍪", "🎂", "🍰", "🧁", "🍭", "🍬"]
 
+# Example array of recipes
+recipes = [
+    {
+        "id": 1,
+        "title": "Recipe 1",
+        "image": "https://c.pxhere.com/photos/78/b1/photo-1617970.jpg!d",
+        "description": "A delicious pasta dish with rich tomato sauce and basil.",
+        "full_recipe": "Ingredients: Tomato, Basil, Pasta. Steps: 1. Boil pasta. 2. Cook tomato sauce. 3. Combine and serve."
+    },
+    {
+        "id": 2,
+        "title": "Recipe 2",
+        "image": "https://www.devourdinner.com/wp-content/uploads/2018/04/Teriyaki-Noodles_Devour-Dinner-101.jpg",
+        "description": "Teriyaki noodles with vegetables and a savory sauce.",
+        "full_recipe": "Ingredients: Noodles, Teriyaki Sauce, Vegetables. Steps: 1. Cook noodles. 2. Stir-fry vegetables. 3. Add sauce and serve."
+    },
+    {
+        "id": 3,
+        "title": "Recipe 3",
+        "image": "https://www.foodandwine.com/thmb/IuZPWAXBp4YaT9hn1YLHhuijT3k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/FAW-recipes-big-italian-salad-hero-83e6ea846722478f8feb1eea33158b00.jpg",
+        "description": "A refreshing salad with greens and a light vinaigrette.",
+        "full_recipe": "Ingredients: Greens, Vinaigrette. Steps: 1. Chop greens. 2. Prepare vinaigrette. 3. Mix and serve."
+    }
+]
+
+def show_recipe_details(recipe):
+    st.image(recipe["image"], width=300)
+    st.markdown(f"### {recipe['title']}")
+    st.markdown(f"**Description:** {recipe['description']}")
+    st.markdown(f"**Recipe:** {recipe['full_recipe']}")
+    if st.button("Go Back"):
+        st.session_state.viewing_recipe = False
+
 def show(ingredients):
     st.title("Recipes")
     st.write("Check out some things you can make!")
-    st.write(", ".join(ingredients)) # temporary
+    st.write(", ".join(ingredients))  # Temporary ingredient display
     rain(
         emoji=random.choice(food_emojis),
         font_size=54,
         falling_speed=5,
         animation_length=100,
     )
-    st.markdown("""
-    <style>
-    .sidebar .sidebar-content {
-        background-color: #d3f0d3;
-        padding: 20px;
-        border-radius: 10px;
-    }
-    .recipe-card {
-        background-color: #e0f2e0;
-        padding: 10px;
-        border-radius: 10px;
-        text-align: center;
-        margin: 20px 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .recipe-card img {
-        border-radius: 10px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
 
-    st.sidebar.button("Monday")
+    # Initially set `viewing_recipe` to False if it does not exist yet
+    if 'viewing_recipe' not in st.session_state:
+        st.session_state.viewing_recipe = False
 
-    # Main content layout
-    col1, col2 = st.columns([1, 3])  # Create two columns for layout
+    # Display recipe cards or selected recipe details based on `viewing_recipe`
+    if not st.session_state.viewing_recipe:
+        st.markdown("""
+        <style>
+        .recipe-card {
+            background-color: #e0f2e0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .recipe-card img {
+            border-radius: 10px;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
-    # Left column for the recipe categories (represents the sidebar structure)
-    with col1:
-        st.header("Categories")
-        st.button("Recipe 1")
-        st.button("Recipe 2")
-        st.button("Recipe 3")
+        # Display recipe cards in a grid layout
+        col1, col2, col3 = st.columns(3)  # Create 3 columns for layout
+        columns = [col1, col2, col3]
 
-    # Right column for recipe details
-    with col2:
-        st.markdown("<div class='recipe-card'>", unsafe_allow_html=True)
-        
-        st.image("https://c.pxhere.com/photos/78/b1/photo-1617970.jpg!d", width=300, caption="Recipe 1")
-        st.markdown("<p><strong>Recipe 1</strong></p>", unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-        
-        # You can replicate this layout for other recipe cards
-        st.markdown("<div class='recipe-card'>", unsafe_allow_html=True)
-        st.image("https://www.devourdinner.com/wp-content/uploads/2018/04/Teriyaki-Noodles_Devour-Dinner-101.jpg", width=300, caption="Recipe 2")
-        st.markdown("<p><strong>Recipe 2</strong></p>", unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
-        st.sidebar.title("results")
-    if st.button("Go Back to Home"):
-        st.session_state.page = "home"
+        for i, recipe in enumerate(recipes):
+            with columns[i % 3]:
+                if st.button(f"View {recipe['title']}", key=f"view_{recipe['id']}"):
+                    st.session_state.selected_recipe = recipe
+                    st.session_state.viewing_recipe = True  # Set the flag to True
+                st.image(recipe["image"], use_column_width=True)
+                st.markdown(f"**{recipe['title']}**")
+                st.markdown(f"{recipe['description']}")
+    else:
+        # Show the selected recipe details
+        show_recipe_details(st.session_state.selected_recipe)
