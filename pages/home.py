@@ -46,7 +46,7 @@ st.markdown(f"""
         text-align: center;
     }}
     .title {{
-        font-size: 48px;
+        font-size: 65px;
         font-weight: bold;
     }}
     .subtitle {{
@@ -83,7 +83,7 @@ st.markdown("""
 st.markdown("""
     <div class="centered-content">
         <div class="title">Never Waste Food Again</div>
-        <div class="subtitle">Transform your leftovers into culinary masterpieces.</div>
+        <div class="subtitle">Transform your leftovers into culinary masterpieces</div>
         <form action="/">
             <button class="upload-button" onclick="window.location.href='/app.py'">Get Started</button>
         </form>
