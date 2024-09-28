@@ -93,10 +93,10 @@ def upload():
             st.session_state.new_ingredients.append("")  # Add a placeholder for the new ingredient
 
         # Combine detected ingredients with new ingredients
-        all_ingredients = ingredients + [ing for ing in st.session_state.new_ingredients if ing]
+        ingredients = ingredients + [ing for ing in st.session_state.new_ingredients if ing]
 
         # Display current ingredients list
-        st.write("Ingredients: " + ", ".join(all_ingredients))
+        st.write("Ingredients: " + ", ".join(ingredients))
         if st.button("Get my recipe!"):
             st.session_state.page = "results"
 
