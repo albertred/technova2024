@@ -67,6 +67,27 @@ st.markdown(f"""
     .upload-button:hover {{
         background-color: #e07a5f;
     }}
+
+    .orange-box {{
+        background-color: #f4a261;
+        color: white;
+        padding: 30px;
+        border-radius: 5px; /* Rounded corners */
+        margin-top: 30px;
+
+    }}
+    .orange-box-text {{
+        font-size: 18px;
+        line-height: 1.6;
+    }}
+    .dark-orange-box {{
+        background-color: #FF7F50;
+        color: white;
+        padding: 30px;
+        border-radius: 5px; /* Rounded corners */
+        margin-top: 50px;
+
+    }}
     </style>
 """, unsafe_allow_html=True)
 
@@ -86,6 +107,13 @@ st.markdown("""
         <div class="subtitle">Transform your leftovers into culinary masterpieces</div>
         <form action="/">
             <button class="upload-button" onclick="window.location.href='/app.py'">Get Started</button>
-        </form>
+        </form>         
+
+    </div>
+        <div class="orange-box">
+            <p class="orange-box-text">Say goodbye to uninspired meals! FridgeFood empowers you to unlock the potential of your fridge's bounty. Simply snap a photo of your leftovers, and let our intelligent AI suggest mouthwatering recipes tailored to your ingredients.</p>
+    </div>
+            <div class="dark-orange-box">
+            <p class="orange-box-text">Using a vast food dataset, we generate personalized recipes just for you. You can also manually add any ingredients you may have missed.</p>
     </div>
 """, unsafe_allow_html=True)
