@@ -2,6 +2,29 @@ import streamlit as st
 import streamlit as st
 from pages import results, upload
 
+from propelauth import auth
+
+user = auth.get_user()
+if user is None:
+    st.error('Please Login')
+    st.stop()
+
+with st.sidebar:
+    st.link_button('Account', auth.get_account_url(), use_container_width=True)
+
+st.text("Logged in as " + user.email + " with user ID " + user.user_id)
+
+with st.sidebar:
+    if st.button("Logout"):
+        auth.logout()
+        st.markdown(
+            """
+        <meta http-equiv="refresh" content="0; URL='/api/auth/logout'" /> 
+            """,
+            unsafe_allow_html=True,
+        )
+
+
 # Initialize session state for page
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
