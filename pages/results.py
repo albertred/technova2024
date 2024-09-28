@@ -1,4 +1,4 @@
-import random
+import random, app
 import streamlit as st
 from streamlit_extras.let_it_rain import rain 
 
@@ -7,17 +7,7 @@ from streamlit_extras.let_it_rain import rain
 background_image_url = "https://media.discordapp.net/attachments/1155327631361835119/1289648145713856684/Untitled_design_37.png?ex=66f995ee&is=66f8446e&hm=0dc366d98bee629ae4de11661932e734a89c5c7a783d1e55ec5fdd278efee563&=&format=webp&quality=lossless&width=1100&height=618"
 
 # CSS for background image and navbar styling
-st.markdown(f"""
-    <style>
-    /* Set background image for the entire body */
-      .stApp {{
-        background-image: url('{background_image_url}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-    }}""", unsafe_allow_html=True)
-
+app.bg_img(background_image_url)
 
 # Styling the navigation bar
 st.markdown("""

@@ -4,24 +4,24 @@ import cv2
 import numpy as np
 import torch
 
-
 # URL of the background image
 background_image_url = "https://media.discordapp.net/attachments/1155327631361835119/1289648145713856684/Untitled_design_37.png?ex=66f995ee&is=66f8446e&hm=0dc366d98bee629ae4de11661932e734a89c5c7a783d1e55ec5fdd278efee563&=&format=webp&quality=lossless&width=1100&height=618"
 
-# CSS for background image and navbar styling
-st.markdown(f"""
-    <style>
-    /* Set background image for the entire body */
-      .stApp {{
-        background-image: url('{background_image_url}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-    }}""", unsafe_allow_html=True)
-
+def bg_img(background_image_url):
+    # CSS for background image and navbar styling
+    st.markdown(f"""
+        <style>
+        /* Set background image for the entire body */
+        .stApp {{
+            background-image: url('{background_image_url}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }}""", unsafe_allow_html=True)
 
 def upload():
+    bg_img(background_image_url)
     # Initialize ingredients and new_ingredient in session state if not already there
     if 'ingredients' not in st.session_state:
         st.session_state.ingredients = []
