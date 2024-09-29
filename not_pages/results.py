@@ -13,53 +13,18 @@ client = pymongo.MongoClient("mongodb+srv://michellelu187:ItGErHWxYlRgflWx@clust
 db = client.recipe_db
 collection = db.recipes
 
-# CSS for background image and navbar styling
-st.markdown(f"""
-    <style>
-    /* Set background image for the entire body */
-      .stApp {{
-        background-image: url('{background_image_url}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-    }}""", unsafe_allow_html=True)
-
-
-# Styling the navigation bar
-st.markdown("""
-    <style>
-    .navbar {
-        position: sticky;
-        top: 0;
-        display: flex;
-        justify-content: center;
-        padding: 15px;
-        z-index: 1000; /* Ensure it's on top of everything else */
-    }
-    .navbar a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        padding: 10px 20px;
-        margin: 0 10px;
-    }
-    .navbar a:hover {
-        background-color: #f4a261;
-        border-radius: 5px;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-# Navigation bar HTML
-st.markdown("""
-    <div class="navbar">
-        <a href='/home'>Home</a>
-        <a href='/app'>Take Photo</a>
-        <a href='/results'>Recipes</a>
-    </div>
-""", unsafe_allow_html=True)
-
+def bg_image(background_image_url):
+    # CSS for background image and navbar styling
+    st.markdown(f"""
+        <style>
+        /* Set background image for the entire body */
+        .stApp {{
+            background-image: url('{background_image_url}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }}""", unsafe_allow_html=True)
 
 # Food emojis for the rain effect
 food_emojis = ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🍈", 
@@ -172,6 +137,8 @@ def show_recipe_details(recipe, user_email):
 # recipes = get_recipe(["brown bread", "bananas", "peanut butter", "milk", "strawberries", "soda", "cherries"])
 
 def show(user_email):
+
+    bg_image(background_image_url)
 
     if st.button("Home", key="gohome"):
         st.session_state.page = 'home'

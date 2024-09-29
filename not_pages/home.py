@@ -3,6 +3,7 @@ import streamlit as st
 def home():
     # URL of the background image
     background_image_url = "https://media.discordapp.net/attachments/1155327631361835119/1289648145713856684/Untitled_design_37.png?ex=66f995ee&is=66f8446e&hm=0dc366d98bee629ae4de11661932e734a89c5c7a783d1e55ec5fdd278efee563&=&format=webp&quality=lossless&width=1100&height=618"
+    logo_path = "logo.webp"
 
     # CSS for background image and navbar styling
     st.markdown(f"""
@@ -19,34 +20,22 @@ def home():
         .centered-content {{
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;  /* Align towards the top */
+            justify-content: center;  /* Center vertically */
             align-items: center;
             height: auto;  /* Let content define height */
             text-align: center;
-            margin-top: 80px; /* Adjust this to move content up/down */
         }}
         .title {{
             font-size: 65px;
             font-weight: bold;
-            margin-bottom: 10px;  /* Reduces space below the title */
+            margin-top: 5px;  /* Adjusted to reduce space above */
+            margin-bottom: 5px;  /* Reduced space below the title */
         }}
         .subtitle {{
             font-size: 24px;
             font-weight: normal;
             color: #f4a261;
-            margin-bottom: 30px;  /* Adjusts spacing before button */
-        }}
-        .upload-button {{
-            padding: 15px 30px;
-            background-color: #f4a261;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-        }}
-        .upload-button:hover {{
-            background-color: #e07a5f;
+            margin-bottom: 20px;  /* Reduced space before button */
         }}
 
         .orange-box {{
@@ -55,7 +44,6 @@ def home():
             padding: 30px;
             border-radius: 5px; /* Rounded corners */
             margin-top: 30px;
-
         }}
         .orange-box-text {{
             font-size: 18px;
@@ -67,13 +55,13 @@ def home():
             padding: 30px;
             border-radius: 5px; /* Rounded corners */
             margin-top: 50px;
-
         }}
         </style>
     """, unsafe_allow_html=True)
-
+    st.image(logo_path, use_column_width=True)
+    
     # HTML layout for the page content
-    st.markdown("""
+    st.markdown(f"""
         <div class="centered-content">
             <div class="title">Never Waste Food Again</div>
             <div class="subtitle">Transform your leftovers into culinary masterpieces</div>    
@@ -105,3 +93,4 @@ def home():
             <p class="orange-box-text">Using a vast food dataset, we generate personalized recipes just for you. You can also manually add any ingredients you may have missed.</p>
         </div>
     """, unsafe_allow_html=True)
+
