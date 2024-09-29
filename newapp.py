@@ -1,5 +1,5 @@
 
-from pages import results, home
+from not_pages import results, home
 import streamlit as st
 import cv2
 import numpy as np
