@@ -1,13 +1,33 @@
+
 from pages import results, home
 import streamlit as st
 import cv2
 import numpy as np
 import torch
+from recipe_recommender import gen_rec
 
 # URL of the background image
 background_image_url = "https://media.discordapp.net/attachments/1155327631361835119/1289648145713856684/Untitled_design_37.png?ex=66f995ee&is=66f8446e&hm=0dc366d98bee629ae4de11661932e734a89c5c7a783d1e55ec5fdd278efee563&=&format=webp&quality=lossless&width=1100&height=618"
 
-def bg_img(background_image_url):
+# CSS for background image and navbar styling
+st.markdown(f"""
+    <style>
+    /* Set background image for the entire body */
+      .stApp {{
+        background-image: url('{background_image_url}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }}""", unsafe_allow_html=True)
+
+
+
+def upload():
+
+    # URL of the background image
+    background_image_url = "https://media.discordapp.net/attachments/1155327631361835119/1289648145713856684/Untitled_design_37.png?ex=66f995ee&is=66f8446e&hm=0dc366d98bee629ae4de11661932e734a89c5c7a783d1e55ec5fdd278efee563&=&format=webp&quality=lossless&width=1100&height=618"
+
     # CSS for background image and navbar styling
     st.markdown(f"""
         <style>
@@ -20,15 +40,23 @@ def bg_img(background_image_url):
             height: 100vh;
         }}""", unsafe_allow_html=True)
 
-def upload():
-    bg_img(background_image_url)
     # Initialize ingredients and new_ingredient in session state if not already there
     if 'ingredients' not in st.session_state:
         st.session_state.ingredients = []
     if 'new_ingredients' not in st.session_state:
         st.session_state.new_ingredients = []  # Initialize a list for new ingredients
 
+    if 'rec_list' not in st.session_state:
+        st.session_state.rec_list = []
+
     ingredients = st.session_state.ingredients  # Use session state for ingredients list
+    
+    def get_recipe(ingredients):
+        arr = [
+            {**row, 'id': index}
+            for index, row in (gen_rec(ingredients)).iterrows()
+        ]
+        return arr
 
     def detect_food(image):
         model = torch.hub.load('yolov5', 'yolov5s', source='local')  # Update with your local path
@@ -109,6 +137,7 @@ def upload():
         if st.button("Add Ingredient"):
             st.session_state.new_ingredient_fields += 1  # Increment the count of new ingredient fields
             st.session_state.new_ingredients.append("")  # Add a placeholder for the new ingredient
+            st.rerun()
 
         # Combine detected ingredients with new ingredients
         ingredients = ingredients + [ing for ing in st.session_state.new_ingredients if ing]
@@ -116,7 +145,12 @@ def upload():
         # Display current ingredients list
         st.write("Ingredients: " + ", ".join(ingredients))
         if st.button("Get my recipe!"):
-            st.session_state.page = "results"
+        #    st.session_state.rec_list = get_recipe(ingredients)
+        #    st.session_state.page = "results"
+            with st.spinner('Fetching recipes for you...'):
+                st.session_state.rec_list = get_recipe(ingredients)
+                st.session_state.page = "results"
+            st.rerun()
 
     return ingredients
 

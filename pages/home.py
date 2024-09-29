@@ -93,33 +93,24 @@ def home():
         </style>
     """, unsafe_allow_html=True)
 
-    # Navigation bar HTML
-    st.markdown("""
-        <div class="navbar">
-            <a href='/home'>Home</a>
-            <a href='/upload'>Take Photo</a>
-            <a href='/results'>Recipes</a>
-        </div>
-    """, unsafe_allow_html=True)
 
     # HTML layout for the page content
     st.markdown("""
         <div class="centered-content">
             <div class="title">Never Waste Food Again</div>
-            <div class="subtitle">Transform your leftovers into culinary masterpieces</div>
-            <form action="/">
-                <button class="upload-button" onclick="window.location.href='/upload'">Get Started</button>
-            </form>         
-
+            <div class="subtitle">Transform your leftovers into culinary masterpieces</div>    
         </div>
-            <div class="orange-box">
-                <p class="orange-box-text">Say goodbye to uninspired meals! FridgeFood empowers you to unlock the potential of your fridge's bounty. Simply snap a photo of your leftovers, and let our intelligent AI suggest mouthwatering recipes tailored to your ingredients.</p>
-        </div>
-                <div class="dark-orange-box">
-                <p class="orange-box-text">Using a vast food dataset, we generate personalized recipes just for you. You can also manually add any ingredients you may have missed.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
+        """, unsafe_allow_html=True)
+    
     if st.button("Get Started", key="get_started"):
         st.session_state.page = 'upload'
+        st.rerun()
 
+    st.markdown("""
+        <div class="orange-box">
+            <p class="orange-box-text">Say goodbye to uninspired meals! FridgeFood empowers you to unlock the potential of your fridge's bounty. Simply snap a photo of your leftovers, and let our intelligent AI suggest mouthwatering recipes tailored to your ingredients.</p>
+    </div>
+            <div class="dark-orange-box">
+            <p class="orange-box-text">Using a vast food dataset, we generate personalized recipes just for you. You can also manually add any ingredients you may have missed.</p>
+    </div>
+    """, unsafe_allow_html=True)
