@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 def home():
     # URL of the background image
     background_image_url = "https://media.discordapp.net/attachments/1155327631361835119/1289648145713856684/Untitled_design_37.png?ex=66f995ee&is=66f8446e&hm=0dc366d98bee629ae4de11661932e734a89c5c7a783d1e55ec5fdd278efee563&=&format=webp&quality=lossless&width=1100&height=618"
@@ -16,48 +15,28 @@ def home():
             background-repeat: no-repeat;
             height: 100vh;
         }}
-        
-        /* Styling the navigation bar */
-        .navbar {{
-            position: sticky;
-            top: 0;
-            display: flex;
-            justify-content: center;
-            padding: 15px;
-            z-index: 1000; /* Ensure it's on top of everything else */
-        }}
-        .navbar a {{
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            padding: 10px 20px;
-            margin: 0 10px;
-        }}
-        .navbar a:hover {{
-            background-color: #f4a261;
-            border-radius: 5px;
-        }}
-        
-        /* Set the body and main container to have the same background color */
+
         .centered-content {{
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;  /* Align towards the top */
             align-items: center;
-            height: 100vh;
+            height: auto;  /* Let content define height */
             text-align: center;
+            margin-top: 80px; /* Adjust this to move content up/down */
         }}
         .title {{
             font-size: 65px;
             font-weight: bold;
+            margin-bottom: 10px;  /* Reduces space below the title */
         }}
         .subtitle {{
             font-size: 24px;
             font-weight: normal;
             color: #f4a261;
+            margin-bottom: 30px;  /* Adjusts spacing before button */
         }}
         .upload-button {{
-            margin-top: 30px;
             padding: 15px 30px;
             background-color: #f4a261;
             color: white;
@@ -93,24 +72,36 @@ def home():
         </style>
     """, unsafe_allow_html=True)
 
-
     # HTML layout for the page content
     st.markdown("""
         <div class="centered-content">
             <div class="title">Never Waste Food Again</div>
             <div class="subtitle">Transform your leftovers into culinary masterpieces</div>    
         </div>
-        """, unsafe_allow_html=True)
-    
-    if st.button("Get Started", key="get_started"):
-        st.session_state.page = 'upload'
-        st.rerun()
+    """, unsafe_allow_html=True)
 
+    # Columns for button alignment
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        pass
+    with col2:
+        pass
+    with col4:
+        pass
+    with col5:
+        pass
+    with col3:
+        # Add padding to the button to control spacing
+        if st.button("Get Started", key="get_started"):
+            st.session_state.page = 'upload'
+            st.rerun()
+
+    # Additional content boxes below
     st.markdown("""
         <div class="orange-box">
             <p class="orange-box-text">Say goodbye to uninspired meals! FridgeFood empowers you to unlock the potential of your fridge's bounty. Simply snap a photo of your leftovers, and let our intelligent AI suggest mouthwatering recipes tailored to your ingredients.</p>
-    </div>
-            <div class="dark-orange-box">
+        </div>
+        <div class="dark-orange-box">
             <p class="orange-box-text">Using a vast food dataset, we generate personalized recipes just for you. You can also manually add any ingredients you may have missed.</p>
-    </div>
+        </div>
     """, unsafe_allow_html=True)
