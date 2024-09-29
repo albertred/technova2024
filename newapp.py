@@ -89,7 +89,6 @@ with col2:
             """,
             unsafe_allow_html=True,
         )
-        st.rerun()
 
 if st.sidebar.button("Saved Recipes"):
     # Set the session state to 'saved_recipes' when clicked
