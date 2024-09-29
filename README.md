@@ -3,4 +3,4 @@ hello!
 
 manually put "recipe_ingredients_list.pkl" inside technova2024
 
-manually update images folder path
+manually update images folder path in not_pages/results.py
