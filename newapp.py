@@ -182,7 +182,7 @@ def upload():
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
         return image, detected_items
     
-    st.title("FridgeFriend :)")
+    st.title("Fridge Friend :)")
     uploaded_files = st.file_uploader("Choose images...", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
     if uploaded_files:
