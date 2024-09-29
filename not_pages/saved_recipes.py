@@ -2,28 +2,11 @@ import streamlit as st
 import pymongo
 
 
-image_folder_path = "/Users/michellelu/Documents/archive1/FoodImages/FoodImages/"
-
-# URL of the background image
-background_image_url = "https://media.discordapp.net/attachments/1155327631361835119/1289648145713856684/Untitled_design_37.png?ex=66f995ee&is=66f8446e&hm=0dc366d98bee629ae4de11661932e734a89c5c7a783d1e55ec5fdd278efee563&=&format=webp&quality=lossless&width=1100&height=618"
+image_folder_path = "/Users/shuyuliu/Downloads/archive(1)/FoodImages/FoodImages/"
 
 client = pymongo.MongoClient("mongodb+srv://michellelu187:ItGErHWxYlRgflWx@cluster0.xg18n.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&tls=true&tlsAllowInvalidCertificates=true")
 db = client.recipe_db
 collection = db.recipes
-
-
-# CSS for background image and navbar styling
-st.markdown(f"""
-    <style>
-    /* Set background image for the entire body */
-      .stApp {{
-        background-image: url('{background_image_url}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-    }}""", unsafe_allow_html=True)
-
 
 # Styling the navigation bar
 st.markdown("""
@@ -49,16 +32,6 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-
-# Navigation bar HTML
-st.markdown("""
-    <div class="navbar">
-        <a href='/home'>Home</a>
-        <a href='/app'>Take Photo</a>
-        <a href='/results'>Recipes</a>
-    </div>
-""", unsafe_allow_html=True)
-
 
 def delete_recipe(user_email, recipe_title):
     # Update the user's saved recipes in the database by removing the specified recipe
