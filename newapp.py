@@ -1,4 +1,5 @@
-from not_pages import results, home
+
+from not_pages import results, home, saved_recipes
 import streamlit as st
 import cv2
 import numpy as np
@@ -15,7 +16,7 @@ if user is None:
 user_email = user.email
 
 # Placeholder profile picture (you can update with the actual user profile picture if available)
-profile_pic_url = "https://via.placeholder.com/100x100.png?text=Profile+Pic"  # Placeholder profile image
+profile_pic_url = "https://scontent.xx.fbcdn.net/v/t1.15752-9/458804338_840392158294440_7403994538093892961_n.jpg?stp=dst-jpg_s403x403&_nc_cat=110&ccb=1-7&_nc_sid=0024fc&_nc_ohc=rSQL63EbrcYQ7kNvgFGk_a-&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&_nc_gid=Acq2l6_wYSTIEh1SxoP0Q58&oh=03_Q7cD1QFPVKcPlCpJUBTdEm0kz_K1Xn2Cjwc6V25nhVsAGaZLYA&oe=67204305"  # Placeholder profile image
 
 
 # Get the user details from PropelAuth
@@ -26,9 +27,6 @@ if user is None:
 
 # User email from the authenticated user
 user_email = user.email
-
-# Placeholder profile picture (you can update with the actual user profile picture if available)
-profile_pic_url = "https://via.placeholder.com/100x100.png?text=Profile+Pic"  # Placeholder profile image
 
 st.sidebar.markdown("""
     <style>
@@ -79,12 +77,11 @@ col1, col2 = st.sidebar.columns(2)
 
 # Account Button in the first column
 with col1:
-    if st.button("Account"):
-        ...
+    st.link_button("Account", auth.get_account_url(), use_container_width=True)
 
 # Logout Button in the second column
 with col2:
-    if st.button("Logout"):
+    if st.button("Logout", use_container_width=True):
         auth.logout()
         st.markdown(
             """
@@ -93,6 +90,10 @@ with col2:
             unsafe_allow_html=True,
         )
 
+if st.sidebar.button("Saved Recipes"):
+    # Set the session state to 'saved_recipes' when clicked
+    st.session_state.page = 'saved'
+    # st.experimental_rerun()  # Rerun the app to reflect the change in state
 # # Main page content
 # if st.session_state.get("page", "home") == "home":
 #     st.text(f"Hello {user_email}!")
@@ -250,4 +251,6 @@ elif st.session_state.page == 'home':
 elif st.session_state.page == 'results':
     with open("ingredients.txt", "r") as file:
         ingredients = [line.strip() for line in file.readlines()]  # Remove newline characters
-    results.show(ingredients)
+    results.show(user_email)
+elif st.session_state.page == "saved":
+    saved_recipes.show(user_email)
