@@ -245,6 +245,7 @@ if st.session_state.page == 'upload':
 elif st.session_state.page == 'home':
     st.session_state.ingredients = []
     st.session_state.new_ingredients = []
+    st.session_state.new_ingredient_fields = 1
     home.home()
 elif st.session_state.page == 'results':
     with open("ingredients.txt", "r") as file:
