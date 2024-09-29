@@ -6,20 +6,126 @@ import numpy as np
 import torch
 from recipe_recommender import gen_rec
 
+from propelauth import auth
+
+# user = auth.get_user()
+# if user is None:
+#     st.error('Please Login')
+#     st.stop()
+
+# with st.sidebar:
+#     st.link_button('Account', auth.get_account_url(), use_container_width=True)
+
+# if st.session_state == "home":
+#     st.text("Hello user.email!")
+
+
+# with st.sidebar:
+#     if st.button("Logout"):
+#         auth.logout()
+#         st.markdown(
+#             """
+#         <meta http-equiv="refresh" content="0; URL='/api/auth/logout'" /> 
+#             """,
+#             unsafe_allow_html=True,
+#         )
+
+user = auth.get_user()
+if user is None:
+    st.error('Please Login')
+    st.stop()
+
+# User email from the authenticated user
+user_email = user.email
+
+# Placeholder profile picture (you can update with the actual user profile picture if available)
+profile_pic_url = "https://via.placeholder.com/100x100.png?text=Profile+Pic"  # Placeholder profile image
+
+import streamlit as st
+from propelauth import auth
+
+# Get the user details from PropelAuth
+user = auth.get_user()
+if user is None:
+    st.error('Please Login')
+    st.stop()
+
+# User email from the authenticated user
+user_email = user.email
+
+# Placeholder profile picture (you can update with the actual user profile picture if available)
+profile_pic_url = "https://via.placeholder.com/100x100.png?text=Profile+Pic"  # Placeholder profile image
+
+st.sidebar.markdown("""
+    <style>
+    .profile-pic {
+        border-radius: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .user-email {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 5px;
+        color: #333;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .styled-button {
+        background-color: ##fafbff;
+        border: 1px solid #d9d9d9;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 14px;
+        color: #333;
+        cursor: pointer;
+        text-align: center;
+        width: 100px;
+        transition: background-color 0.3s ease;
+    }
+    .styled-button:hover {
+        background-color: #e0e0e5;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Display profile picture and user email in the sidebar using HTML for styling
+st.sidebar.markdown(f"""
+    <img src="{profile_pic_url}" alt="Profile Picture" class="profile-pic" width="100">
+    <p class='user-email'>{user_email}</p>
+""", unsafe_allow_html=True)
+
+# Create two columns to align buttons side by side
+col1, col2 = st.sidebar.columns(2)
+
+# Account Button in the first column
+with col1:
+    if st.button("Account"):
+        ...
+
+# Logout Button in the second column
+with col2:
+    if st.button("Logout"):
+        auth.logout()
+        st.markdown(
+            """
+            <meta http-equiv="refresh" content="0; URL='/api/auth/logout'" /> 
+            """,
+            unsafe_allow_html=True,
+        )
+
+# # Main page content
+# if st.session_state.get("page", "home") == "home":
+#     st.text(f"Hello {user_email}!")
+
+
 # URL of the background image
 background_image_url = "https://media.discordapp.net/attachments/1155327631361835119/1289648145713856684/Untitled_design_37.png?ex=66f995ee&is=66f8446e&hm=0dc366d98bee629ae4de11661932e734a89c5c7a783d1e55ec5fdd278efee563&=&format=webp&quality=lossless&width=1100&height=618"
-
-# CSS for background image and navbar styling
-st.markdown(f"""
-    <style>
-    /* Set background image for the entire body */
-      .stApp {{
-        background-image: url('{background_image_url}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-    }}""", unsafe_allow_html=True)
 
 
 
