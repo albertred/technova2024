@@ -113,9 +113,9 @@ def show(ingredients):
     st.write("Check out some things you can make!")
     rain(
         emoji=random.choice(food_emojis),
-        font_size=54,
-        falling_speed=5,
-        animation_length=100,
+        font_size=40,
+        falling_speed=4,
+        animation_length=1,
     )
 
     # Initially set `viewing_recipe` to False if it does not exist yet
