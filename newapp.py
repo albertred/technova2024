@@ -4,30 +4,7 @@ import cv2
 import numpy as np
 import torch
 from recipe_recommender import gen_rec
-
 from propelauth import auth
-
-# user = auth.get_user()
-# if user is None:
-#     st.error('Please Login')
-#     st.stop()
-
-# with st.sidebar:
-#     st.link_button('Account', auth.get_account_url(), use_container_width=True)
-
-# if st.session_state == "home":
-#     st.text("Hello user.email!")
-
-
-# with st.sidebar:
-#     if st.button("Logout"):
-#         auth.logout()
-#         st.markdown(
-#             """
-#         <meta http-equiv="refresh" content="0; URL='/api/auth/logout'" /> 
-#             """,
-#             unsafe_allow_html=True,
-#         )
 
 user = auth.get_user()
 if user is None:
@@ -40,8 +17,6 @@ user_email = user.email
 # Placeholder profile picture (you can update with the actual user profile picture if available)
 profile_pic_url = "https://via.placeholder.com/100x100.png?text=Profile+Pic"  # Placeholder profile image
 
-import streamlit as st
-from propelauth import auth
 
 # Get the user details from PropelAuth
 user = auth.get_user()
@@ -219,43 +194,43 @@ def upload():
             else:
                 st.write("No food items detected.")
 
-        # Add a button to create new ingredient input fields
-        if 'new_ingredient_fields' not in st.session_state:
-            st.session_state.new_ingredient_fields = 1  # Start with one additional input field
+    # Add a button to create new ingredient input fields
+    if 'new_ingredient_fields' not in st.session_state:
+        st.session_state.new_ingredient_fields = 1  # Start with one additional input field
 
-        # Show all current input fields for new ingredients
-        for i in range(st.session_state.new_ingredient_fields):
-            # Check if the new ingredients list has enough entries; if not, add placeholders
-            if i >= len(st.session_state.new_ingredients):
-                st.session_state.new_ingredients.append("")  # Placeholder for the new ingredient
+    # Show all current input fields for new ingredients
+    for i in range(st.session_state.new_ingredient_fields):
+        # Check if the new ingredients list has enough entries; if not, add placeholders
+        if i >= len(st.session_state.new_ingredients):
+            st.session_state.new_ingredients.append("")  # Placeholder for the new ingredient
 
-            # Display the input field for editing new ingredients
-            new_ingredient = st.text_input(f"New Ingredient {i + 1}", 
-                                            value=st.session_state.new_ingredients[i], 
-                                            key=f"new_ingredient_{i}")
+        # Display the input field for editing new ingredients
+        new_ingredient = st.text_input(f"New Ingredient {i + 1}", 
+                                        value=st.session_state.new_ingredients[i], 
+                                        key=f"new_ingredient_{i}")
 
-            # Update the new ingredient list
-            if new_ingredient != st.session_state.new_ingredients[i]:  # Check if it's been edited
-                st.session_state.new_ingredients[i] = new_ingredient
+        # Update the new ingredient list
+        if new_ingredient != st.session_state.new_ingredients[i]:  # Check if it's been edited
+            st.session_state.new_ingredients[i] = new_ingredient
 
-        # Button to add another ingredient input field
-        if st.button("Add Ingredient"):
-            st.session_state.new_ingredient_fields += 1  # Increment the count of new ingredient fields
-            st.session_state.new_ingredients.append("")  # Add a placeholder for the new ingredient
-            st.rerun()
+    # Button to add another ingredient input field
+    if st.button("Add Ingredient"):
+        st.session_state.new_ingredient_fields += 1  # Increment the count of new ingredient fields
+        st.session_state.new_ingredients.append("")  # Add a placeholder for the new ingredient
+        st.rerun()
 
-        # Combine detected ingredients with new ingredients
-        ingredients = ingredients + [ing for ing in st.session_state.new_ingredients if ing]
+    # Combine detected ingredients with new ingredients
+    ingredients = ingredients + [ing for ing in st.session_state.new_ingredients if ing]
 
-        # Display current ingredients list
-        st.write("Ingredients: " + ", ".join(ingredients))
-        if st.button("Get my recipe!"):
-        #    st.session_state.rec_list = get_recipe(ingredients)
-        #    st.session_state.page = "results"
-            with st.spinner('Fetching recipes for you...'):
-                st.session_state.rec_list = get_recipe(ingredients)
-                st.session_state.page = "results"
-            st.rerun()
+    # Display current ingredients list
+    st.write("Ingredients: " + ", ".join(ingredients))
+    if st.button("Get my recipe!"):
+    #    st.session_state.rec_list = get_recipe(ingredients)
+    #    st.session_state.page = "results"
+        with st.spinner('Fetching recipes for you...'):
+            st.session_state.rec_list = get_recipe(ingredients)
+            st.session_state.page = "results"
+        st.rerun()
 
     return ingredients
 
