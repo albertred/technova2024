@@ -1,7 +1,6 @@
 import random
 import streamlit as st
 from streamlit_extras.let_it_rain import rain 
-from recipe_recommender import gen_rec
 
 image_folder_path = "/Users/shuyuliu/Downloads/archive(1)/FoodImages/FoodImages/"
 
