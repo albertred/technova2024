@@ -65,15 +65,12 @@ def show(user_email):
     if st.button("Home", key="gohome"):
         st.session_state.page = 'home'
         st.session_state.viewing_recipe = False
-        # st.experimental_rerun()
         st.rerun()
         
 	        
     st.title("Saved Recipes")
 
-    # Initially set `viewing_recipe` to False if it does not exist yet
-    if 'viewing_recipe' not in st.session_state:
-        st.session_state.viewing_recipe = False
+    st.session_state.viewing_recipe = False
 
     # Display recipe cards or selected recipe details based on `viewing_recipe`
     if not st.session_state.viewing_recipe:
@@ -107,7 +104,7 @@ def show(user_email):
                     if st.button(f"View {recipe['Title']}", key=f"view_{recipe['id']}"):
                         st.session_state.selected_recipe = recipe
                         st.session_state.viewing_recipe = True  # Set the flag to True
-                        # st.experimental_rerun()
+                        st.rerun()
 
                     st.image(image_folder_path + recipe["Image_Name"] + ".jpg", use_column_width=True)
                     st.markdown(f"**{recipe['Title']}**")
