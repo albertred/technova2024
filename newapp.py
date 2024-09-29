@@ -89,11 +89,12 @@ with col2:
             """,
             unsafe_allow_html=True,
         )
+        st.rerun()
 
 if st.sidebar.button("Saved Recipes"):
     # Set the session state to 'saved_recipes' when clicked
     st.session_state.page = 'saved'
-    # st.experimental_rerun()  # Rerun the app to reflect the change in state
+    st.rerun()
 # # Main page content
 # if st.session_state.get("page", "home") == "home":
 #     st.text(f"Hello {user_email}!")
