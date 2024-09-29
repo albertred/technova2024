@@ -55,6 +55,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
+
 # Food emojis for the rain effect
 food_emojis = ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🍈", 
                "🍒", "🍑", "🍍", "🥭", "🥥", "🥝", "🍅", "🥑", "🍆", "🥕", 
@@ -90,6 +91,7 @@ recipes = [
 
 
 def show_recipe_details(recipe):
+
     st.image(image_folder_path + recipe["Image_Name"] + ".jpg", width=300)
     st.markdown(f"### {recipe['Title']}")
     #st.markdown(f"**Description:** {recipe['description']}")
@@ -101,9 +103,14 @@ def show_recipe_details(recipe):
 # recipes = get_recipe(["brown bread", "bananas", "peanut butter", "milk", "strawberries", "soda", "cherries"])
 
 def show(ingredients):
+
+    if st.button("Home", key="gohome"):
+        st.session_state.page = 'home'
+        st.session_state.viewing_recipe = False
+        st.rerun()
+
     st.title("Recipes")
     st.write("Check out some things you can make!")
-    st.write(", ".join(ingredients))  # Temporary ingredient display
     rain(
         emoji=random.choice(food_emojis),
         font_size=54,

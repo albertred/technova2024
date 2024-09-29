@@ -164,6 +164,8 @@ if st.session_state.page == 'upload':
         for item in ingredients:
             file.write(f"{item}\n")
 elif st.session_state.page == 'home':
+    st.session_state.ingredients = []
+    st.session_state.new_ingredients = []
     home.home()
 elif st.session_state.page == 'results':
     with open("ingredients.txt", "r") as file:
