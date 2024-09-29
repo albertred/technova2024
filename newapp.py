@@ -1,4 +1,3 @@
-
 from not_pages import results, home
 import streamlit as st
 import cv2
@@ -165,7 +164,7 @@ def upload():
         return arr
 
     def detect_food(image):
-        model = torch.hub.load('yolov5', 'yolov5s', source='local')  # Update with your local path
+        model = torch.hub.load('yolov5-backup', 'yolov5s', source='local')  # Update with your local path
         results = model(image)
         return results
 
@@ -183,7 +182,7 @@ def upload():
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
         return image, detected_items
     
-    st.title("Food Detection App")
+    st.title("FridgeFriend :)")
     uploaded_files = st.file_uploader("Choose images...", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
     if uploaded_files:
