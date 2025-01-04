@@ -1,4 +1,4 @@
-# TechNova2024 Submission - FridgeFriend
+# FridgeFriend
 
 ## Running the Application 
 - manually put "recipe_ingredients_list.pkl" inside technova2024
